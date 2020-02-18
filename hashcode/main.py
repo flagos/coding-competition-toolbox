@@ -7,8 +7,8 @@ from os.path import isfile, join, isdir
 import click
 
 from algos.genetic_algorithm import GeneticAlgorithm
-from hashcode.template.model.problem import Problem
-from hashcode.template.model.solution import Solution
+from hashcode.model.problem import Problem
+from hashcode.model.solution import Solution
 
 
 @click.group()
@@ -33,13 +33,13 @@ def compute_solutions(input_path: str, output_path: str):
     mkdir(sol_folder)
 
     # Run test cases
-    test_cases = [f for f in listdir(input_path) if isfile(join(input_path, f))]
+    test_cases = [f for f in listdir(input_path) if isfile(join(input_path, f)) and f.endswith(".in")]
     for test_case in test_cases:
         test_case_name = test_case.split(".")[0]
         print("Processing test case {}".format(test_case))
         problem = Problem.parse_from(file_path=join(input_path, test_case),
                                      name=test_case_name)
-        solution = Solution(problem=problem)
+        solution = Solution.generate_solution(problem=problem)
 
         serialize_solution(solution=solution,
                            sol_folder=sol_folder,
