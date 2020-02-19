@@ -27,7 +27,7 @@ class Solution:
     @abc.abstractmethod
     def _generate_solution(self):
         print("Computing solution")
-        pass
+        self.slide = []
 
     def build_out_file(self, path: str):
         with open(path, "w") as file:
@@ -38,7 +38,7 @@ class Solution:
             pickle.dump(self, file)
 
     def compute_score(self) -> float:
-        return 0
+        return
 
     @staticmethod
     def crossover(sol1: Solution, sol2: Solution) -> Solution:
